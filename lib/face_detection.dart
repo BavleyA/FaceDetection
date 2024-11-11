@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FaceDetectionScreen extends StatefulWidget {
@@ -13,6 +14,8 @@ class FaceDetectionScreen extends StatefulWidget {
 
 class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
   File? _image;
+
+  List<Face> faces=[];
 
   Future _pickImage(ImageSource source) async{
     try{
@@ -28,6 +31,17 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
       }
     }
   }
+
+  Future _faceDetect(File img) async {
+    final options = FaceDetectorOptions();
+    final faceDetector = FaceDetector(options: options);
+    final inputImage = InputImage.fromFilePath(img.path);
+    faces = await faceDetector.processImage(inputImage);
+    setState(() {});
+    print(faces.length);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +74,11 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
                 color: Colors.indigoAccent,
                 child: MaterialButton(
                     onPressed: (){
-                      _pickImage(ImageSource.camera);
+                      _pickImage(ImageSource.camera).then((value){
+                        if(_image != null){
+                          _faceDetect(_image!);
+                        }
+                      });
                     },
                   child: Text('Take a Photo',
                   style: TextStyle(
@@ -77,7 +95,11 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
                 color: Colors.indigoAccent,
                 child: MaterialButton(
                   onPressed: (){
-                    _pickImage(ImageSource.gallery);
+                    _pickImage(ImageSource.gallery).then((value){
+                      if(_image !=null){
+                        _faceDetect(_image!);
+                      }
+                    });
                   },
                   child: Text('Upload From Gallery',
                     style: TextStyle(
@@ -85,6 +107,14 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
                       fontSize: 20.0,
                     ),
                   ),
+                ),
+              ),
+              SizedBox(height: 20,),
+              Text(
+                'Number of Faces in Image is ${faces.length}',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
               ),
             ],
