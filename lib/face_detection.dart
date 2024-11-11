@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class FaceDetectionScreen extends StatefulWidget {
   const FaceDetectionScreen({super.key});
@@ -8,6 +12,22 @@ class FaceDetectionScreen extends StatefulWidget {
 }
 
 class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
+  File? _image;
+
+  Future _pickImage(ImageSource source) async{
+    try{
+      final image = await ImagePicker().pickImage(source: source);
+      if(image == null) return;
+      setState(() {
+        _image = File(image.path);
+      });
+    }
+    catch(error){
+      if (kDebugMode) {
+        print(error);
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +47,11 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
                 width: double.infinity,
                 height: 250,
                 color: Colors.grey,
-                child: Center(child: Icon(Icons.add_a_photo, size: 60,)),
+                child: Center(
+                    child: _image == null ? Icon(
+                      Icons.add_a_photo, size: 60,
+                    ) : Image.file(_image!),
+                ),
               ),
               SizedBox(height: 10,),
               Container(
@@ -35,7 +59,9 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
                 height: 50,
                 color: Colors.indigoAccent,
                 child: MaterialButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      _pickImage(ImageSource.camera);
+                    },
                   child: Text('Take a Photo',
                   style: TextStyle(
                     color: Colors.white,
@@ -50,7 +76,9 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
                 height: 50,
                 color: Colors.indigoAccent,
                 child: MaterialButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    _pickImage(ImageSource.gallery);
+                  },
                   child: Text('Upload From Gallery',
                     style: TextStyle(
                       color: Colors.white,
