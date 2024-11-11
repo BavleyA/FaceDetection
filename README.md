@@ -1,16 +1,55 @@
-# facedetection
+# Face Detection Application
 
-A new Flutter project.
+This Flutter application enables users to detect faces in an image by either capturing a photo or uploading one from their gallery. The app uses face detection to count the number of faces in an image and displays the result to the user.
+
+## Features
+
+- **Take a Photo**: Capture an image using the device camera.
+- **Upload a Photo**: Select an image from the device's gallery.
+- **Face Detection**: Detect and count the number of faces in the selected image.
+- **Real-time Feedback**: Displays the count of detected faces immediately.
+
+## Technologies
+
+- **Flutter**: Cross-platform framework for building the application.
+- **Google ML Kit**: For face detection functionality.
+- **Image Picker**: Allows users to capture or upload images.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- [Flutter SDK](https://flutter.dev/docs/get-started/install)
+- Android Studio or Xcode (for running the app on Android or iOS)
+- Firebase account if using Firebase ML Kit
+- Permissions for camera and storage access on the device
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. **Clone the repository:**
+    ```bash
+   git clone https://github.com/yourusername/face_detection_app.git
+   cd face_detection_app
+    
+2. **Install dependencies:**
+    ```bash
+    flutter pub get
+  
+3. **Run The App:**
+   ```bash
+    flutter run
+
+## Usage
+
+1. **Launch the app.**
+2. **Select an option**:
+   - Tap **"Take Photo"** to capture a new image.
+   - Tap **"Upload Photo"** to select an image from the gallery.
+3. **View Results**:
+   - The app will detect faces in the image and display the count on the screen.
+  
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests to help improve the app.
+
+  
