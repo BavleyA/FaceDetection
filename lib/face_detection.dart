@@ -30,7 +30,35 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
                 child: Center(child: Icon(Icons.add_a_photo, size: 60,)),
               ),
               SizedBox(height: 10,),
-
+              Container(
+                width: double.infinity,
+                height: 50,
+                color: Colors.indigoAccent,
+                child: MaterialButton(
+                    onPressed: (){},
+                  child: Text('Take a Photo',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
+              Container(
+                width: double.infinity,
+                height: 50,
+                color: Colors.indigoAccent,
+                child: MaterialButton(
+                  onPressed: (){},
+                  child: Text('Upload From Gallery',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
